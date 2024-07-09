@@ -1,16 +1,29 @@
 #NoEnv
 #SingleInstance Force
 SendMode Input
-SetWorkingDir, C:\path\to\workspace  ; Change to your actual workspace path
 
-; Loop through each folder in the workspace directory
-Loop, Files, C:\path\to\workspace\*.*, D  ; D specifies directories only
+; Set the workspace directory
+workspaceDir := "C:\path\to\workspace" ; Change this to your actual workspace path
+
+; Function to run a command and get the output
+RunCommand(command, outputVar)
 {
-    ; Check if the folder contains a .git directory
-    if FileExist(A_LoopFileFullPath . "\.git")
+    shell := ComObjCreate("WScript.Shell")
+    exec := shell.Exec(ComSpec " /C " command)
+    stdout := exec.StdOut
+    while, !stdout.AtEndOfStream
+        outputVar .= stdout.ReadAll()
+}
+
+; Loop through each subdirectory in the workspace directory
+Loop, Files, %workspaceDir%\*.*, D
+{
+    gitDir := A_LoopFileFullPath . "\.git"
+    if FileExist(gitDir)
     {
-        ; Run git pull in the folder
-        RunWait, %ComSpec% /c "cd /d %A_LoopFileFullPath% && git pull origin main", , Hide
+        ; Run git pull command
+        RunCommand("cd /d " . A_LoopFileFullPath . " && git pull origin main", output)
+        MsgBox, 0, Git Pull Output, % "Pulled from: " A_LoopFileFullPath "`nOutput: " output
     }
 }
 
