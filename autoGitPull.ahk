@@ -3,7 +3,7 @@
 SendMode Input
 
 ; Set the workspace directory
-workspaceDir := "C:\path\to\workspace" ; Change this to your actual workspace path
+workspaceDir := "C:\Users\David\Documents\Workspace" ; Change this to your actual workspace path
 
 ; Function to run a command and get the output
 RunCommand(command, outputVar)
