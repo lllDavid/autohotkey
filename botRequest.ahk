@@ -13,7 +13,7 @@
     Sleep, 1000
     Send, {tab}
     Send, {tab}
-    Send, {tab}
+    Send, {tab} 
     Send, {tab}
     Send, {tab}
     Send, Why use overriding method in Java ? 
