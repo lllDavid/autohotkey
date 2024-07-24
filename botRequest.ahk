@@ -16,7 +16,7 @@
     Send, {tab} 
     Send, {tab}
     Send, {tab}
-    Send, Why use overriding method in Java ? 
+    Send, "Question" 
     Sleep, 1000
     Send, {Enter}
 
